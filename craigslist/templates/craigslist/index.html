@@ -1,0 +1,27 @@
+{% if latest_annonce_list %}
+<table class="striped">
+  <thead>
+    <tr>
+      <th>Annonce</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for announce in latest_annonce_list %}
+      <tr>
+
+          <td> <a href="{% url 'announce_detail' announce.id %}">{{ announce.title }} </a></td>
+          <td> {{ announce.edit_date }}</td>
+      </tr>
+      {% endfor %}
+  </tbody>
+</table>
+{% else %}
+    <p>No announces are available.</p>
+{% endif %}
+
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
