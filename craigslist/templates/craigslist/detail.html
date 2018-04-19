@@ -1,1 +1,24 @@
-dfg
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
+<div class="container">
+  {% if announce %}
+    <h1> {{ announce.title }} </h1>
+    <h2  class="by"> By {{ announce.author_name }}, {{ announce.edit_date }} </h2>
+    <div  class="description"> {{ announce.description }} </div>
+  {% else %}
+      <p>This is not a valid announce numbre !</p>
+  {% endif %}
+</div>
+
+<div class="fixed-action-btn">
+  <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons" >email</i></a>
+</div>

@@ -1,27 +1,40 @@
-{% if latest_annonce_list %}
-<table class="striped">
-  <thead>
-    <tr>
-      <th>Annonce</th>
-      <th>Date</th>
-    </tr>
-  </thead>
-  <tbody>
-      {% for announce in latest_annonce_list %}
-      <tr>
+{% load static %}
 
-          <td> <a href="{% url 'announce_detail' announce.id %}">{{ announce.title }} </a></td>
-          <td> {{ announce.edit_date }}</td>
-      </tr>
-      {% endfor %}
-  </tbody>
-</table>
-{% else %}
-    <p>No announces are available.</p>
-{% endif %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
 
 <!-- Compiled and minified CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
+<div class="container">
+  <h1> Last Announces </h1>
+  {% if latest_annonce_list %}
+  <table class="striped">
+    <thead>
+      <tr>
+        <th >Annonce</th>
+        <th width="200px">Date</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for announce in latest_annonce_list %}
+        <tr>
+
+            <td> <a href="{% url 'announce_detail' announce.id %}">{{ announce.title }} </a></td>
+            <td> {{ announce.edit_date }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+      <p>No announces are available.</p>
+  {% endif %}
+
+</div>
+
+<div class="fixed-action-btn">
+  <a class="btn-floating btn-large waves-effect waves-light red" <a href="{% url 'new' %}"><i class="material-icons" >add</i></a>
+</div>
