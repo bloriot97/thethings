@@ -2,6 +2,10 @@ from django.db import models
 
 from django.utils import timezone
 
+from django.shortcuts import reverse
+
+
+# I should have implemented ModelForm
 
 
 class Announce(models.Model):
@@ -12,6 +16,10 @@ class Announce(models.Model):
     author_email = models.EmailField(max_length=70)
     edit_date = models.DateTimeField('date published')
     private_token = models.CharField(max_length=32)
+
+    def getEditUri(self):
+        return "/" + str(self.pk) + '/edit/?key=' + self.private_token
+
 
     def __str__(self):
         return self.title + "[" + author_name + "]:" + self.description

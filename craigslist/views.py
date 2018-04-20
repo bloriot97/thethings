@@ -34,6 +34,7 @@ def new(request):
 
 def send_mail(request, announce_id):
     # Here I should check if the informations are valid, but as they are already verified on the client side we are going to concider for this project that they are well formed
+    # I could have done that using ModelForm
     announce = get_object_or_404(Announce, pk=announce_id)
     try:
         name = request.POST['name']
@@ -48,9 +49,54 @@ def send_mail(request, announce_id):
         email_notifier.new_mail(mail)
         return HttpResponseRedirect(reverse('index'))
 
+def edit(request, announce_id):
+    announce = get_object_or_404(Announce, pk=announce_id)
+    try:
+        key = request.GET['key']
+        if ( key != announce.private_token):
+            return HttpResponseRedirect(reverse('index'))
+    except (KeyError):
+        return HttpResponseRedirect(reverse('index'))
+    else:
+        return render(request, 'craigslist/edit.html', {'announce': announce})
+
+def delete(request, announce_id):
+    announce = get_object_or_404(Announce, pk=announce_id)
+    try:
+        private_token = request.GET['key']
+    except (KeyError):
+        return HttpResponse("error")
+    if ( private_token == announce.private_token):
+        announce.delete()
+    return HttpResponseRedirect(reverse('index'))
+
+
+def edit_save(request, announce_id):
+    # Here I should check if the informations are valid, but as they are already verified on the client side we are going to concider for this project that they are well formed
+    # I could have done that using ModelForm
+    announce = get_object_or_404(Announce, pk=announce_id)
+    try:
+        title = request.POST['title']
+        description = request.POST['description']
+        private_token = request.POST['private_token']
+        date = timezone.now()
+    except (KeyError):
+        return HttpResponse("error")
+    else:
+        if ( private_token == announce.private_token):
+            announce.title = title
+            announce.description = description
+            announce.edit_date = date
+            announce.save()
+            return HttpResponseRedirect(reverse('index'))
+        else:
+            return HttpResponse("error")
+
+
 
 def add_announce(request):
     # Here I should check if the informations are valid, but as they are already verified on the client side we are going to concider for this project that they are well formed
+    # I could have done that using ModelForm
     try:
         token = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(32))
         title = request.POST['title']

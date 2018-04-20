@@ -3,7 +3,7 @@ from .models import Announce, Mail
 
 def announce_creation(announce):
     subject = 'Announce #{0} created'.format(announce.pk)
-    body = 'Dear {0}, Your announce {1} has been created'.format(announce.author_name, announce.title)
+    body = 'Dear {0}, Your announce {1} has been created <br> To edit it use this link : www.website.com{2}'.format(announce.author_name, announce.title, announce.getEditUri())
     send_mail(
         subject,
         body,
