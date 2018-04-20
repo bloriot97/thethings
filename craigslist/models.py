@@ -12,3 +12,13 @@ class Announce(models.Model):
     author_email = models.EmailField(max_length=70)
     edit_date = models.DateTimeField('date published')
     private_token = models.CharField(max_length=32)
+
+    def __str__(self):
+        return self.title + "[" + author_name + "]:" + self.description
+
+class Mail(models.Model):
+    announce = models.ForeignKey(Announce, on_delete=models.CASCADE)
+    date = models.DateTimeField('date published')
+    author_name = models.CharField(max_length=15)
+    author_email = models.EmailField(max_length=70)
+    body = models.CharField(max_length=500)
