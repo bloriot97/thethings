@@ -37,11 +37,11 @@ pip install -r requirements.txt
 ## Running the Application
 Before running the application you will need to create the needed DB tables:
 ```
-./manage.py migrate
+python ./manage.py migrate
 ```
 Now you can run the development web server:
 ```
-./manage.py runserver
+python ./manage.py runserver
 ```
 To access the applications go to the URL http://localhost:8000/
 
@@ -49,5 +49,5 @@ To access the applications go to the URL http://localhost:8000/
 ## Manage the website
 If you want you can create a superuser.
 ```
-./manage.py createsuperuser
+python ./manage.py createsuperuser
 ```
