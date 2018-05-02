@@ -39,9 +39,9 @@ def edit(request, announce_id):
     try:
         key = request.GET['key']
         if ( key != announce.private_token):
-            return HttpResponseRedirect(reverse('index'))
+            return render(request, 'craigslist/error.html', {'description': "Private key does not match."})
     except (KeyError):
-        return HttpResponseRedirect(reverse('index'))
+        return render(request, 'craigslist/error.html', {'description': "Cannot get the private key."})
     else:
         return render(request, 'craigslist/edit.html', {'announce': announce})
 
@@ -50,7 +50,7 @@ def delete(request, announce_id):
     try:
         private_token = request.GET['key']
     except (KeyError):
-        return HttpResponse("error")
+        return render(request, 'craigslist/error.html', {'description': "Cannot get the private key."})
     if ( private_token == announce.private_token):
         announce.delete()
     return HttpResponseRedirect(reverse('index'))
@@ -66,7 +66,7 @@ def edit_save(request, announce_id):
         private_token = request.POST['private_token']
         date = timezone.now()
     except (KeyError):
-        return HttpResponse("error")
+            return render(request, 'craigslist/error.html', {'description': "Cannot get the fiels please fill the form correctly."})
     else:
         if ( private_token == announce.private_token):
             announce.title = title
@@ -75,11 +75,12 @@ def edit_save(request, announce_id):
             announce.save()
             return HttpResponseRedirect(reverse('index'))
         else:
-            return HttpResponse("error")
+            return render(request, 'craigslist/error.html', {'description': "Private key does not match."})
+
 
 
 
 def add_announce(request):
     announce = AnnounceForm(request.POST)
-    email_notifier.announce_creation(announce.save())
+    email_notifier.announce_creation(announce.save(), request)
     return HttpResponseRedirect(reverse('index'))

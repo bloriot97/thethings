@@ -1,0 +1,27 @@
+{% load static %}
+
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+<script src="{% static 'js/form.js' %}"></script>
+
+
+<div class="container">
+  <h1> Error ! </h1>
+  <p> {{ description }} </p>
+
+  <a href="/"><button class="btn waves-effect waves-light red"> Return to the home page
+    <i class="material-icons left">home</i>
+  </button></a>
+
+</div>

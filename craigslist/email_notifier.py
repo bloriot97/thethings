@@ -1,9 +1,12 @@
 from django.core.mail import send_mail
 from .models import Announce, Mail
 
-def announce_creation(announce):
+def announce_creation(announce, request):
     subject = 'Announce #{0} created'.format(announce.pk)
-    body = 'Dear {0}, Your announce {1} has been created <br> To edit it use this link : www.website.com{2}'.format(announce.author_name, announce.title, announce.getEditUri())
+    # there is no nice way to get the website url except to get it from the URL.
+    # You could also define a Site object corresponding to your website.
+    url = request.get_host() + announce.getEditUri()
+    body = 'Dear {0}, Your announce {1} has been created <br> To edit it use this link : {2}'.format(announce.author_name, announce.title, url)
     send_mail(
         subject,
         body,
