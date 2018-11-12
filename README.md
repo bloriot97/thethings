@@ -18,7 +18,7 @@ Then to activate it execute the activate script use :
 ```
 on windows or
 ```
-./myenv/bin/activate
+source ./myenv/bin/activate
 ```
 on Posix.
 
